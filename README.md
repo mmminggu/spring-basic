@@ -43,5 +43,8 @@
     * 회원 등급에 따라 할인 정책 적용
     * 할인 정책 : 정액할인(VIP만 1000원 할인) 또는 정률할인(퍼센테이지 할인)
 
+
 <br>
 <b>2023.10.01 ~ (section3)</b>
+
+* AppConfig를 사용하여 클라이언트인 OrderServiceImpl, MemberServiceImpl에 구현 객체를 대신 생성하고 주입 

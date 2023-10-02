@@ -48,12 +48,12 @@
 <b>2023.10.01 ~ (section3)</b>
 
 * AppConfig를 사용하여 클라이언트인 OrderServiceImpl, MemberServiceImpl에 구현 객체를 대신 생성하고 주입 
-* 제어의 역전 IoC (Inversion of Control)
+* <b>제어의 역전 IoC (Inversion of Control)</b>~~~~
   * 프로그램의 제어 프름을 직접 제어하는 것이 아니라 외부에서 관리하는 것 ( ex) AppConfig가 직접 OrderServiceImpl 생성 )
 * 프레임워크와 라이브러리
   * 프레임워크 : 내가 작성한 코드를 제어하고 대신 실행하는 것 (JUnit)
   * 라이브러리 : 내가 작성한 코드가 직접 제어의 흐름을 담당하는 것
-* 의존관계 주입 DI (Dependency Injection)
+* <b>의존관계 주입 DI (Dependency Injection)</b>
   * 정적인 클래스 의존관계
     * 클래스가 사용하는 import 코드만 보고 의존관계 판단, 애플리케이션 실행하지 않고 분석
     * 클래스 의존관계 만으로는 실제 어떤 객체가 OrderServiceImpl에 주입되는지는 알 수 없음
@@ -64,3 +64,9 @@
   * IoC 컨테이너, <b>DI 컨테이너</b>
     * 객체를 생성하고 관리하면서 의존관계를 연결해 주는 것
     * ex) AppConfig
+  * 스프링 컨테이너
+    * ApplicationContext : 스프링 컨테이너
+    * @Configuration : 구성 정보로 사용
+    * @Bean : 메서드를 모두 호출 해서 반환된 객체를 스프링 컨테이너에 등록  ==> 스프링 빈
+      * 메서드의 이름을 스프링 빈의 이름으로 사용
+    

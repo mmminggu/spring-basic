@@ -122,5 +122,5 @@
     1) AnnotationConfigApplicationContext가 AnnotatedBeanDefinitionReader를 사용하여 AppConfig.class를 읽음
     2) **BeanDefinition** 생성
   * 팩토리 메소드를 통해서 등록하는 방식 : Appconfig.class
-  * 직접 스프링 Bean을 등록하는 방식 : appConfig.xml~~~~
+  * 직접 스프링 Bean을 등록하는 방식 : appConfig.xml
   

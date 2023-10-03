@@ -47,13 +47,19 @@
 <br>
 <b>2023.10.01 ~ (section3)</b>
 
-* AppConfig를 사용하여 클라이언트인 OrderServiceImpl, MemberServiceImpl에 구현 객체를 대신 생성하고 주입 
-* <b>제어의 역전 IoC (Inversion of Control)</b>~~~~
+* AppConfig를 사용하여 클라이언트인 OrderServiceImpl, MemberServiceImpl에 구현 객체를 대신 생성하고 주입
+
+  
+* **제어의 역전 IoC (Inversion of Control)**
   * 프로그램의 제어 프름을 직접 제어하는 것이 아니라 외부에서 관리하는 것 ( ex) AppConfig가 직접 OrderServiceImpl 생성 )
+
+
 * 프레임워크와 라이브러리
   * 프레임워크 : 내가 작성한 코드를 제어하고 대신 실행하는 것 (JUnit)
   * 라이브러리 : 내가 작성한 코드가 직접 제어의 흐름을 담당하는 것
-* <b>의존관계 주입 DI (Dependency Injection)</b>
+  
+
+* **의존관계 주입 DI (Dependency Injection)**
   * 정적인 클래스 의존관계
     * 클래스가 사용하는 import 코드만 보고 의존관계 판단, 애플리케이션 실행하지 않고 분석
     * 클래스 의존관계 만으로는 실제 어떤 객체가 OrderServiceImpl에 주입되는지는 알 수 없음
@@ -67,6 +73,54 @@
   * 스프링 컨테이너
     * ApplicationContext : 스프링 컨테이너
     * @Configuration : 구성 정보로 사용
-    * @Bean : 메서드를 모두 호출 해서 반환된 객체를 스프링 컨테이너에 등록  ==> 스프링 빈
+    * @Bean : 메서드를 모두 호출 해서 반환된 객체를 스프링 컨테이너에 등록  ==> <b>스프링 빈</b>
       * 메서드의 이름을 스프링 빈의 이름으로 사용
+
+
+<br>
+<b>2023.10.03 (section4)</b>
+
+* **스프링 컨테이너**
+  * 스프링 컨테이너 생성 과정
+    1) 스프링 컨테이너 생성
+       * new AnnotationConfigApplicationContext(AppConfig.class)
+       * AppConfig.class를 구성 정보로 지정
+    2) 스프링 빈 등록
+       * 파라미터로 넘어온 설정 클래스 정보를 사용해서 스프링 빈 등록
+       * 스프링 빈 저장소에 <b>빈 이름 - 빈 객체</b>로 등록
+       * 빈 이름은 메서드 이름을 사용, 또는 @Bean(name="memberService2")로 직접 지정 가능
+    3) 스프링 빈 의존관계 설정
+  * 스프링 빈 정보 출력
+    * ac.getBeanDefinitionNames() : 스프링에 등록된 모든 빈 이름 조회
+    * ac.get() : 빈 이름으로 빈 객체(인스턴스)를 조회
+    * Role ROLE_APPLICATION : 직접 등록한 애플리케이션 빈
+    * Role ROLE_INFRASTRUCTURE : 스프링이 내부에서 사용하는 빈
     
+
+* **BeanFactory**
+  * 스프링 컨테이너의 최상위 인터페이스
+  * 스프링 빈을 관리하고 죄회하는 역할
+  * getBean() 제공
+
+
+* **ApplicationContext**
+  * BeanFactory 기능을 모두 상속 받아서 제공
+  * 다양한 부가기능 제공
+    * 메시지소스를 활용한 국제화 기능 : 한국 - 한국어 / 영어권 - 영어
+    * 환경변수 : 로컬, 개발, 운영등을 구분해서 처리
+    * 애플리케이션 이벤트 : 이벤트를 발생하고 구독하는 모델을 편리하게 지원
+    * 편리한 리소스 조회 : 파일, 클래스패스, 외부 등에서 리소스를 편리하게 조회
+
+  
+* **스프링 빈 메타 정보 - BeanDefinition**
+  * BeanDefinition이라는 추상화로 다양한 설정 형식을 지원할 수 있음
+    <br> ==> BeanDefinition 자체가 인터페이스
+  * 역할과 구현을 개념적으로 나눔
+  * 스프링 컨테이너는 자바 코드인지, XML인지 몰라도 BeanDefinition만 알면 됨
+  * 메타정보(BeanDefinition)를 기반으로 스프링 빈 생성
+  * BeanDefinition 생성 순서
+    1) AnnotationConfigApplicationContext가 AnnotatedBeanDefinitionReader를 사용하여 AppConfig.class를 읽음
+    2) **BeanDefinition** 생성
+  * 팩토리 메소드를 통해서 등록하는 방식 : Appconfig.class
+  * 직접 스프링 Bean을 등록하는 방식 : appConfig.xml~~~~
+  

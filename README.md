@@ -155,3 +155,32 @@
     * 임의의 다른 클래스가 싱글톤이 보장되도록 해줌
     * @Configuration을 붙이지 않고 @Bean만 하게 되도 스프링 빈으로 등록은 되지만, 조작되지 않은 클래스(AppConfig)로 등록 
       * 싱글톤이 보장 되지 않게 됨
+
+<br>
+<b>2023.10.07 (section)</b>
+
+* **컴포넌트 스캔**
+  * @ComponentScan : @Component가 붙은 클래스를 스캔해서 스프링 빈으로 등록
+  * @Autowired : 자동으로 의존관계 주입
+    * ac.getBean(MemberRepository.class) -> 같은 타입의 빈을 찾아서 주입
+
+    
+* **탐색 위치**
+  * basePackages : 탐색할 패키지 지정
+  * basePackageClasses : 지정한 클래스의 패키지를 탐색
+  * 디폴트 : @ComponentScna이 붙은 설정 정보의 클래스의 패키지를 탐색
+
+
+* 필터
+  * includeFilters : 컴포넌트 스캔 대상을 추가로 지정
+  * excludeFilters : 컴포넌트 스캔에서 제외할 대상을 지정
+
+
+* 중복 등록과 충돌
+  * 자동 빈 등록 : @Component로 등록 / 수동 빈 등록 : AppConfig에 @Bean으로 직접 등록
+  * 자동 빈 등록 시 이름이 같은 경우 ConflictingBeanDefinitionException 예외 발생
+  * 자동 빈 등록, 수동 빈 등록에서 이름이 같은 경우 수동 빈 등록이 우선권을 가짐
+    * 수동 빈이 자동 빈을 오버라이딩 함
+  * **최근 스프링 부트에서는 수동 빈 등록과 자동 빈 등록이 충돌나면 오류가 발생하도록 기본 값 변경**
+    * application.properties에 spring.main.allow-bean-definition-overriding=true 추가 하면 오버라이딩 사용
+    

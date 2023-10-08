@@ -157,7 +157,7 @@
       * 싱글톤이 보장 되지 않게 됨
 
 <br>
-<b>2023.10.07 (section)</b>
+<b>2023.10.07 (section6)</b>
 
 * **컴포넌트 스캔**
   * @ComponentScan : @Component가 붙은 클래스를 스캔해서 스프링 빈으로 등록
@@ -183,4 +183,36 @@
     * 수동 빈이 자동 빈을 오버라이딩 함
   * **최근 스프링 부트에서는 수동 빈 등록과 자동 빈 등록이 충돌나면 오류가 발생하도록 기본 값 변경**
     * application.properties에 spring.main.allow-bean-definition-overriding=true 추가 하면 오버라이딩 사용
-    
+
+
+<br>
+<b>2023.10.8 (section7)</b>
+
+* 의존관계 자동 주입
+  * 의존관계 자동 주입은 스프링 컨테이너가 관리하는 스프링 빈이어야 동작 (일반 객체에 @Autowired는 동작 안함)
+  * 생성자 주입
+    * 생성자 호출시점에 딱 1번만 호출되는 것이 보장
+    * **불편, 필수** 의존관계에 사용
+    * 생성자가 한 개 있을 때 @Autowired 생략 가능
+  * 수정자 주입 (setter 주입)
+    * **선택, 변경** 가능성이 있는 의존관계에 사용
+  * 필드 주입 : 필드에 바로 @AutoWired 주입
+  * 일반 메서드 주입 : 한번에 여러 필드를 주입 받을 수 있음
+
+
+* 자동 주입 대상 옵션 처리
+  * @Autowired(required=false) : 자동 주입 대상이 없으면 수정자 메서드 자체가 호출 안됨
+  * @Nullable : 자동 주입 대상이 없으면 null이 입력
+  * Optional<> : 자동 주입 대상이 없으면 Optional.empty가 입력
+
+
+* 조회 대상 빈이 2개 이상일 때 해결 방법
+  * @Autowired : 자동으로 의존관계 주입 시 같은 타입의 빈을 찾아서 주입 하는 데 조회 대상 빈이 2개일 경우 문제 발생
+  1. 필드 명을 빈 이름으로 변경
+     * ex) discountPolicy -> RateDiscountPolicy
+  2. @Quilifier 사용 (추가 구분자)
+     * @Qualifier 매칭 -> 빈 이름 매칭 -> 없으면 NoSuchBeanDefinitionException 발생 
+     * ex) @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy
+  3. @Primary 사용
+     * 우선순위로 지정되어 의존관계 주입
+     * @Quilifier가 우선권이 높음

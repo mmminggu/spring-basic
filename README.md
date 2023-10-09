@@ -227,4 +227,5 @@
     * 소멸전 콜백 : 빈이 소멸되기 직전에 콜백
   * 인터페이스 InitializingBean, DisposableBean (거의 사용 X)
   * 빈 등록 초기화, 소멸 메서드 : @Bean(initMethod = "init", destroyMethod = "close" -> destroyMethod는 생략 가능)
-  * 애노테이션 @PostConstruct, @PreDestroy
+  * 애노테이션 @PostConstruct, @PreDestroy (**권장**)
+  * 코드 수정이 불가능 한 외부 라이브러리를 초기화, 종료 시 @Bean(initMethod = "init", destroyMethod = "close") 사용

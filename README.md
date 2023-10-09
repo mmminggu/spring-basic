@@ -226,5 +226,5 @@
     * 초기화 콜백 : 빈이 생성 된 후, 빈의 의존관계 주입이 완료되면 호출
     * 소멸전 콜백 : 빈이 소멸되기 직전에 콜백
   * 인터페이스 InitializingBean, DisposableBean (거의 사용 X)
-  * 빈 등록 초기화, 소멸 메서드
+  * 빈 등록 초기화, 소멸 메서드 : @Bean(initMethod = "init", destroyMethod = "close" -> destroyMethod는 생략 가능)
   * 애노테이션 @PostConstruct, @PreDestroy

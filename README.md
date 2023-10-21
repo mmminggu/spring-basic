@@ -265,3 +265,12 @@
     * 스프링 애플리케이션을 실행하는 시점에 싱글톤 빈은 생성해서 주입이 가능하지만, request 스코프 빈은 실제 고객의 요청이 와야 생성할 수 있음
     * ObjectProvider를 사용하면 ObjectProvider.getObject()를 호출하는 시점까지 request scope 빈의 생성을 지연할 수 있음
       <br> --> 같은 HTTP 요청이면 같은 스프링 빈이 반환됨
+
+  * 스코프와 프록시
+    * proxyMode = ScopedProxyMode.TARGET_CLASS
+      * 적용 대상이 인터페페이스가 아닌 클래스면 TARGET_CLASS 선택
+      * 적용 대상이 인터페이스면 INTERFACES 선택
+      * 가짜 프록시 클래스를 만들어두고 HTTP request와 상관 없이 가짜 프록시 클래스를 다른빈에 미리 주입해둘수 있음
+        * 가짜 프록시 객체는 요청이 오면 그때 내부에서 진짜 빈을 요청하는 위임 로직 포함
+        * **CGLIB라는 라이브러리로 내 클래스를 상속 받은 가짜 프록시 객체를 만들어서 주입**
+      
